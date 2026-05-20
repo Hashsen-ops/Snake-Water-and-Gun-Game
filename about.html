@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Snake Water Gun Game</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #1d2671, #c33764);
+    }
+
+    .container {
+      width: 400px;
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .choices {
+      display: flex;
+      justify-content: space-between;
+      margin: 25px 0;
+    }
+
+    .btn {
+      width: 100px;
+      height: 100px;
+      border: none;
+      border-radius: 15px;
+      cursor: pointer;
+      font-size: 18px;
+      font-weight: bold;
+      transition: 0.3s;
+      color: white;
+    }
+
+    .snake {
+      background: #27ae60;
+    }
+
+    .water {
+      background: #3498db;
+    }
+
+    .gun {
+      background: #e74c3c;
+    }
+
+    .btn:hover {
+      transform: scale(1.08);
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 20px;
+      color: #222;
+      min-height: 30px;
+    }
+
+    .scoreboard {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-around;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1> Snake Water Gun </h1>
+    <h4>lets play the game!</h4>
+
+    <p>Select your choice:</p>
+
+    <div class="choices">
+      <button class="btn snake" onclick="playGame('Snake')"> Snake</button>
+      <button class="btn water" onclick="playGame('Water')"> Water</button>
+      <button class="btn gun" onclick="playGame('Gun')"> Gun</button>
+    </div>
+
+    <div class="result" id="result">Start the game!</div>
+
+    <div class="scoreboard">
+      <div>You: <span id="userScore">0</span></div>
+      <div>Computer: <span id="computerScore">0</span></div>
+    </div>
+
+
+  </div>
+
+  <script>
+    let userScore = 0;
+    let computerScore = 0;
+
+    function playGame(userChoice) {
+      const choices = ['Snake', 'Water', 'Gun'];
+      const randomIndex = Math.floor(Math.random() * 3);
+      const computerChoice = choices[randomIndex];
+
+      let resultText = '';
+
+      if (userChoice === computerChoice) {
+        resultText = `Both selected ${userChoice}. It's a Draw!`;
+      }
+      else if (
+        (userChoice === 'Snake' && computerChoice === 'Water') ||
+        (userChoice === 'Water' && computerChoice === 'Gun') ||
+        (userChoice === 'Gun' && computerChoice === 'Snake')
+      ) {
+        userScore++;
+        resultText = `You Win! ${userChoice} beats ${computerChoice}`;
+      }
+      else {
+        computerScore++;
+        resultText = `Computer Wins! ${computerChoice} beats ${userChoice}`;
+      }
+
+      document.getElementById('result').innerText = resultText;
+      document.getElementById('userScore').innerText = userScore;
+      document.getElementById('computerScore').innerText = computerScore;
+    }
+  </script>
+
+</body>
+</html>
